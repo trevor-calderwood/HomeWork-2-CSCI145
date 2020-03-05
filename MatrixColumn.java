@@ -16,11 +16,20 @@ public class MatrixColumn {
     }
 
     public void insert(ValueNode value) {
-
+        
     }
 
     public int get(int position) {
-        return 0;
+             //  iterate through list of values until finding position that you're looking for and return what number it is in the list
+             ValueNode currentNode = first;
+             int row = 0;
+             while(row < position){
+                 currentNode = currentNode.getNextColumn();
+                 row += 1;  // Shows what row the loop is checking
+             }
+             return currentNode.getRow();
+     
+              //return value of node when position = count 
+         }
     }
 
-}

@@ -16,11 +16,25 @@ public class MatrixRow {
     }
 
     public void insert(ValueNode value) {
+        
+        //  Set node before node being inserted to point to node in order if it is first have head point too.
+        // Iterate through untile node index - 1 to set the pointer of that to node being inserted.
+        // Iterate through again until the index of value being iserted and set next o null if nothing after or whatever the next node is
+        //  Set node being inserting to point ot next node or null if nothing after
+
 
     }
 
     public int get(int position) {
-        return 0;
+        //  iterate through list of values until finding position that you're looking for and return what number it is in the list
+        ValueNode currentNode = first;
+        int column = 0;
+        while(column < position){
+            currentNode = currentNode.getNextColumn();
+        }
+        return currentNode.getRow();
+
+         //return count of list that has gone through.
     }
 
 }
