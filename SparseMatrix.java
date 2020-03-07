@@ -9,10 +9,33 @@ public class SparseMatrix {
         this.totalRows = rows;
         this.totalColumns = columns;
 
+        this.firstColumn = new MatrixColumn();
+        MatrixColumn tempColumn = firstColumn;
+
+        for(int i = 0; i <= totalColumns; i++){
+
+            tempColumn.setNext(new MatrixColumn());
+            tempColumn = tempColumn.getNext();
+        }
+
+        this.firstRow = new MatrixRow();
+        MatrixRow tempRow = firstRow;
+
+        for(int j = 0; j <= totalRows; j++){
+            tempRow.setNext(new MatrixRow());
+            tempRow = tempRow.getNext();
+        }
+
+
+
     }
 
     public void insert(int row, int column, int value) {
-        
+        ValeuNode temp = new ValueNode(row, column, value);
+        MatrixRow.insert(temp.getRow());
+
+        MatrixColumn.inset(temp.getColumn());
+
     }
 
     public MatrixRow getRow(int position) {
