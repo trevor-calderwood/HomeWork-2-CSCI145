@@ -39,26 +39,31 @@ public class SparseMatrix {
     }
 
     public MatrixRow getRow(int position) {
-        return null;
+        MatrixRow tempRow = MatrixRow.get(position);
+        return tempRow;
     }
 
     public MatrixColumn getColumn(int position) {
-        return null;
+        MatrixColumn tempCol = MatrixColumn.get(position);
+        return tempCol;
     }
 
     public int getValue(int row, int column) {
+        
         return 0;
     }
 
     public void print() {
-
+        //Need to do
     }
 
-    public SparseMatrix transpose() {
+    public SparseMatrix transpose() {   // Flips columns and rows
+        // Need to do
         return null;
     }
 
-    public SparseMatrix produce(SparseMatrix other) {
+    public SparseMatrix produce(SparseMatrix other) {   //Multiples both matrixes together
+        // Need to do 
         return null;
     }
 }
