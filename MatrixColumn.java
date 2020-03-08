@@ -24,9 +24,9 @@ public class MatrixColumn {
             ValueNode currentNode = first;
 
             while(currentNode.getRow() < row - 1){
-                currentNode = currentNode.getNext();
+                currentNode = currentNode.getNextColumn();
             }
-            ValueNode newNextColumn = currentNode.getNext();
+            ValueNode newNextColumn = currentNode.getNextColumn();
             currentNode.setNextColumn(value);
             value.setNextColumn(newNextColumn);
         }
