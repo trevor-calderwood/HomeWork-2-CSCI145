@@ -16,27 +16,25 @@ public class MatrixRow {
     }
 
     public void insert(ValueNode value) {
-        int column = value.getColumn();
-        if(first==null){
+        if(this.first==null){
+            this.first = value;
+        }
+        else if(value.getColumn() < first.getColumn()){
+            value.setNextRow(first);
             first = value;
         }
         else{
-            ValueNode currentNode = first;
+            ValueNode current = first;
+            ValueNode next = current.getNextRow();
 
-            while(currentNode.getColumn() < column - 1){
-                currentNode = currentNode.getNextRow();
+            while((next != null) && (next.getColumn() < value.getColumn())){
+                current = next;
+                next = next.getNextRow();
             }
-            ValueNode newNextRow = currentNode.getNextRow();
-            currentNode.setNextRow(value);
-            value.setNextRow(newNextRow);
+
+            current.setNextRow(value);
+            value.setNextRow(next);
         }
-
-        //  Set node before node being inserted to point to node in order if it is first have head point too.
-        // Iterate through untile node index - 1 to set the pointer of that to node being inserted.
-        // Iterate through again until the index of value being iserted and set next o null if nothing after or whatever the next node is
-        //  Set node being inserting to point ot next node or null if nothing after
-
-
 
 
     }

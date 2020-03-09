@@ -16,20 +16,27 @@ public class MatrixColumn {
     }
 
     public void insert(ValueNode value) {
-        int row = value.getRow();
-        if(first==null){
+        if(this.first==null){
+            this.first = value;
+        }
+        else if(value.getRow() < first.getRow()){
+            value.setNextColumn(first);
             first = value;
         }
         else{
-            ValueNode currentNode = first;
+            ValueNode current = first;
+            ValueNode next = current.getNextColumn();
 
-            while(currentNode.getRow() < row - 1){
-                currentNode = currentNode.getNextColumn();
+            while((next != null) && (next.getRow() < value.getRow())){
+                current = next;
+                next = next.getNextColumn();
             }
-            ValueNode newNextColumn = currentNode.getNextColumn();
-            currentNode.setNextColumn(value);
-            value.setNextColumn(newNextColumn);
+
+            current.setNextColumn(value);
+            value.setNextColumn(next);
         }
+
+
     }
 
     public int get(int position) {
