@@ -49,8 +49,23 @@ public class SparseMatrix {
     }
 
     public int getValue(int row, int column) {
-        
-        return 0;
+        MatrixColumn tempCol;
+        MatrixRow tempRow;
+
+        for(int i = 0; i <= row; i++){
+            tempCol = tempCol.getNext();
+        }
+        for(int j = 0; j <= row; j++){
+            tempRow = tempRow.getNext();
+        }
+        Valuenode tempC = tempCol.get();
+        Valuenode tempR = tempRow.get();
+        if(tempC.getValue() == tempR.getValie()){
+            return tempC.getValue();
+        }
+        else{
+            return 0;
+        }
     }
 
     public void print() {
