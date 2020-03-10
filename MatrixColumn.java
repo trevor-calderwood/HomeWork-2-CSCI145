@@ -42,12 +42,17 @@ public class MatrixColumn {
     public int get(int position) {
              //  iterate through list of values until finding position that you're looking for and return what number it is in the list
              ValueNode currentNode = first;
-             int row = 0;
-             while(row < position){
+             int count = 0;
+             while(currentNode.getrow() != null && currentNode.getrow() < position){
                  currentNode = currentNode.getNextColumn();
-                 row += 1;  // Shows what row the loop is checking
+                 count += 1;  // Shows what row the loop is checking
              }
-             return currentNode.getRow();
+             if(currentNode.getRow() == position){
+                 return count;
+             }else{
+                 return 0;
+             }
+
      
               //return value of node when position = count 
          }

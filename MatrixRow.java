@@ -45,8 +45,13 @@ public class MatrixRow {
         int column = 0;
         while(column < position){
             currentNode = currentNode.getNextColumn();
+            column += 1;
         }
-        return currentNode.getRow();
+        if(currentNode.getRow() == position){
+            return column;
+        }else{
+            return 0;
+        }
 
          //return count of list that has gone through.
     }
