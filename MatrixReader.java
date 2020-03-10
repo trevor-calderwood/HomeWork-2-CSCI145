@@ -1,66 +1,64 @@
-import java.util.Scanner;
+import java.io.File;
+import java.util.*;
 
 public class MatrixReader {
 
-    public SparseMatrix read(String file){
-        Scanner scan = new Scanner(new File(file));
-        int rows = scan.nextInt();
-        int columns = scan.nextInt();
-        String valueTemp;
-        String tempLine;
-        
-        //could do a switch case method like
-        // switch(scan), case: matrixA <instert for loop> 
-        //  then do the same thing for case: matrixB
-        switch(scan){
-            case matrixA:
-                for(int i = 0; i <= rows; i++){
-                    tempLine = scan.nextLine();
-                    for(int j = 0; j <= tempLine.length(); j++){
-                        if(tempLine.charAt(j) == " "){
-                            valueTemp = tempLine.split(" ");
-                        }
-                     if(tempLine.charAt(j) == ","){
-                        valueTemp = tempLine.split(",");
-                        }
-                    }
-                }
-                return null;
-            
-            case matrixB:
+    public SparseMatrix read(String filename){
+        File file = new File(filename);
+
+        try{ // has to be in try catch to avoid FileNotFoundException error. The program won't compile otherwise.
+            Scanner scan = new Scanner(file);
+            int rows = scan.nextInt();
+            int columns = scan.nextInt();
+            String[] valueTemp;
+            String tempLine;
+            System.out.println("rows : " + rows + "\n" + "columns : " + columns);
+
+            SparseMatrix matrix = new SparseMatrix(rows, columns); //initialize matrix to eventually return
+
             for(int i = 0; i <= rows; i++){
                 tempLine = scan.nextLine();
                 for(int j = 0; j <= tempLine.length(); j++){
-                    if(tempLine.charAt(j) == " "){
+                    if(tempLine.charAt(j) == ' '){
                         valueTemp = tempLine.split(" ");
                     }
-                 if(tempLine.charAt(j) == ","){
-                    valueTemp = tempLine.split(",");
+                    if(tempLine.charAt(j) == ','){
+                        valueTemp = tempLine.split(",");
                     }
                 }
             }
-            return null;
+            return matrix;
+        }catch(Exception e){
+            System.out.println("FILE NOT FOUND");
         }
-        /* Honestly, im stumped, I know there is a way we can parse through that for loop below
-         */
-    }
-}
 
 
 
-        /* for(int i = 0; i <= rows; i++){
-            tempLine = scan.nextLine();
-            for(int j = 0; j <= tempLine.length(); j++){
-                if(tempLine.charAt(j) == " "){
-                    valueTemp = tempLine.split(" ");
-                }
-                if(tempLine.charAt(j) == ","){
-                    valueTemp = tempLine.split(",");
-                }
-            }
-        }
+
+
         return null;
     }
 }
 
-*/
+
+
+        /*int rows = scan.nextInt();
+        int columns = scan.nextInt();
+        String[] valueTemp;
+        String tempLine;
+        System.out.println("rows : " + rows + "\n" + "columns : " + columns);
+
+        SparseMatrix matrix = new SparseMatrix(rows, columns);
+
+        for(int i = 0; i <= rows; i++){
+            tempLine = scan.nextLine();
+            for(int j = 0; j <= tempLine.length(); j++){
+                if(tempLine.charAt(j) == ' '){
+                    String splitCharSpace = " ";
+                    valueTemp = tempLine.split(splitCharSpace);
+                }
+                if(tempLine.charAt(j) == ','){
+                    valueTemp = tempLine.split(",");
+                }
+            }
+        }*/
