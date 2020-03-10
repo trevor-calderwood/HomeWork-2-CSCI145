@@ -43,7 +43,7 @@ public class MatrixColumn {
              //  iterate through list of values until finding position that you're looking for and return what number it is in the list
              ValueNode currentNode = first;
              int count = 0;
-             while(currentNode.getrow() != null && currentNode.getrow() < position){
+             while(currentNode.getNextColumn() != null && currentNode.getRow() < position){
                  currentNode = currentNode.getNextColumn();
                  count += 1;  // Shows what row the loop is checking
              }
