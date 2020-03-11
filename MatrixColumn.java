@@ -7,6 +7,10 @@ public class MatrixColumn {
         return first;
     }
 
+    public void setFirst(ValueNode first) {
+        this.first = first;
+    }
+
     public MatrixColumn getNext() {
         return next;
     }
@@ -40,21 +44,21 @@ public class MatrixColumn {
     }
 
     public int get(int position) {
-             //  iterate through list of values until finding position that you're looking for and return what number it is in the list
-             ValueNode currentNode = first;
-             int count = 0;
-             while(currentNode.getNextColumn() != null && currentNode.getRow() < position){
-                 currentNode = currentNode.getNextColumn();
-                 count += 1;  // Shows what row the loop is checking
-             }
-             if(currentNode.getRow() == position){
-                 return count;
-             }else{
-                 return 0;
-             }
+        //  iterate through list of values until finding position that you're looking for and return what number it is in the list
+        ValueNode currentNode = first;
+        int count = 0;
+        while(currentNode.getNextColumn() != null && currentNode.getRow() < position){
+            currentNode = currentNode.getNextColumn();
+            count += 1;  // Shows what row the loop is checking
+        }
+        if(currentNode.getRow() == position){
+            return count;
+        }else{
+            return 0;
+        }
 
-     
-              //return value of node when position = count 
-         }
+
+        //return value of node when position = count
     }
+}
 

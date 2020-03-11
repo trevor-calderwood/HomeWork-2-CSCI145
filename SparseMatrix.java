@@ -1,3 +1,4 @@
+//import com.sun.jdi.Value;
 
 public class SparseMatrix {
     private int totalRows;
@@ -26,23 +27,44 @@ public class SparseMatrix {
         }
     }
 
+    public int getTotalRows(){
+        return totalRows;
+    }
+
+    public int getTotalColumns(){
+        return totalColumns;
+    }
+
     public void insert(int row, int column, int value) {
         // create a ValueNode for this row, column, value
         ValueNode node = new ValueNode(row, column, value);
         // get the MatrixRow of row
         MatrixRow rowObject = firstRow;
         for(int i=0; i < row; i++){
+            // insert the ValueNode into the row
+            if(rowObject.getFirst() == null){
+                rowObject.setFirst(node);
+                System.out.println("setFirst to row");
+            }else{
+                rowObject.insert(node);
+            }
             rowObject = rowObject.getNext();
         }
-        // insert the ValueNode into the row
-        rowObject.insert(node);
+
+
         // get the MatrixColumn of column
         MatrixColumn columnObject = firstColumn;
         for(int i=0; i < column; i++){
+            // insert the same ValueNode into the column
+            if(columnObject.getFirst() == null){
+                columnObject.setFirst(node);
+                System.out.println("setFirst to column");
+            }else{
+                columnObject.insert(node);
+            }
             columnObject = columnObject.getNext();
         }
-        // insert the same ValueNode into the column
-        columnObject.insert(node);
+
 
     }
 
@@ -90,24 +112,60 @@ public class SparseMatrix {
     }
 
     public void print() {
-        //Need to do
+        MatrixRow row = firstRow;
+        if(firstRow == null){
+            System.out.println("firstRow is null");
+        }else if(row.getFirst() == null){
+            System.out.println("row.getFirst() is null");
+        }
+        ValueNode node = row.getFirst();
+        System.out.println("node.getRow() : " + node.getRow());
+        System.out.println("node.getColumn() : " + node.getColumn());
+        for(int j = 0; j < totalRows; j++){
+            for(int i = 0; i < totalColumns; i++){
+                //System.out.println("node.getRow() : " + node.getRow());
+                //System.out.println("node.getColumn() : " + node.getColumn());
+                if(j+1 == node.getRow() && i+1 == node.getColumn()){
+                    System.out.print(node.getValue());
+                }else{
+                    System.out.print(0);
+                }
+                System.out.print(" ");
+                node = node.getNextRow();
+            }
+            System.out.println();
+            row = row.getNext();
+        }
     }
 
     public SparseMatrix transpose() {   // Flips columns and rows
-        // Need to do
-        return null;
+        SparseMatrix transpose  = new SparseMatrix(this.totalColumns, this.totalRows);
+        ValueNode node = this.firstRow.getFirst();
+
+        for (int i = 0; i < totalRows; i++ ) {		//iterates through row
+            for(int j = 0; j < totalColumns; j++){    //iterates through column
+                transpose.insert(node.getColumn(), node.getRow(), node.getValue());
+                node = node.getNextRow();
+            }
+        }
+                    return transpose;
     }
 
     public SparseMatrix produce(SparseMatrix other) {   //Multiplies both matrices together
+        int rows = Math.max(this.totalRows, other.getTotalRows());
+        int columns = Math.max(this.totalColumns, other.getTotalColumns());
+
+        SparseMatrix product = new SparseMatrix(rows, columns);
+/*
         for (int i = 1 -> rowsA) {		//computes each row in the product
             for(int j = 1 -> columnsB) {	//computes each column in the product
                 for(int k = 1 -> columnsA) {	//computes each value in the product
-                    sum += (value of matrixA at i, k) * (value of matrixB at k, j)
+                    sum += (value of matrixA at i, k) * (other.getValue(j, k));
                 }
-                insert sum into product
+                product.insert(sum);
             }
         }
-
-        return null;
+*/
+        return product;
     }
 }

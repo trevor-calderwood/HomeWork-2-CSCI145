@@ -7,6 +7,10 @@ public class MatrixRow {
         return first;
     }
 
+    public void setFirst(ValueNode first) {
+        this.first = first;
+    }
+
     public MatrixRow getNext() {
         return next;
     }
@@ -53,7 +57,7 @@ public class MatrixRow {
             return 0;
         }
 
-         //return count of list that has gone through.
+        //return count of list that has gone through.
     }
 
 }

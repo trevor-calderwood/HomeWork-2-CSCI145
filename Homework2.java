@@ -17,8 +17,11 @@ public class Homework2 {
         transposeMatrixB.print();
 
         //compute product of matrixA and matrixB and print
+        /*
         SparseMatrix productMatrix = matrixA.produce(matrixB);
         productMatrix.print();
+
+        */
 
     }
 }
