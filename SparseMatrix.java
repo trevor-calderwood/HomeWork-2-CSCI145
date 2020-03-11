@@ -13,7 +13,6 @@ public class SparseMatrix {
         MatrixColumn tempColumn = firstColumn;
 
         for(int i = 0; i <= totalColumns; i++){
-
             tempColumn.setNext(new MatrixColumn());
             tempColumn = tempColumn.getNext();
         }
@@ -25,43 +24,65 @@ public class SparseMatrix {
             tempRow.setNext(new MatrixRow());
             tempRow = tempRow.getNext();
         }
-
-
-
     }
 
     public void insert(int row, int column, int value) {
-        ValeuNode temp = new ValueNode(row, column, value);
-        MatrixRow.insert(temp.getRow());
-
-        MatrixColumn.inset(temp.getColumn());
+        // create a ValueNode for this row, column, value
+        ValueNode node = new ValueNode(row, column, value);
+        // get the MatrixRow of row
+        MatrixRow rowObject = firstRow;
+        for(int i=0; i < row; i++){
+            rowObject = rowObject.getNext();
+        }
+        // insert the ValueNode into the row
+        rowObject.insert(node);
+        // get the MatrixColumn of column
+        MatrixColumn columnObject = firstColumn;
+        for(int i=0; i < column; i++){
+            columnObject = columnObject.getNext();
+        }
+        // insert the same ValueNode into the column
+        columnObject.insert(node);
 
     }
 
     public MatrixRow getRow(int position) {
-        MatrixRow tempRow = MatrixRow.get(position);
+        MatrixRow tempRow = firstRow;
+        for(int i = 0; i < position; i++){
+            tempRow = tempRow.getNext();
+        }
         return tempRow;
     }
 
     public MatrixColumn getColumn(int position) {
-        MatrixColumn tempCol = MatrixColumn.get(position);
-        return tempCol;
+        MatrixColumn tempColumn = firstColumn;
+        for(int i = 0; i < position; i++){
+            tempColumn = tempColumn.getNext();
+        }
+        return tempColumn;
     }
 
     public int getValue(int row, int column) {
-        MatrixColumn tempCol;
-        MatrixRow tempRow;
+        MatrixColumn tempColumn = firstColumn;
+        MatrixRow tempRow = firstRow;
 
-        for(int i = 0; i <= row; i++){
-            tempCol = tempCol.getNext();
+        for(int i = 0; i < row; i++){
+            tempColumn = tempColumn.getNext();
         }
-        for(int j = 0; j <= row; j++){
+        for(int j = 0; j < column; j++){
             tempRow = tempRow.getNext();
         }
-        Valuenode tempC = tempCol.get();
-        Valuenode tempR = tempRow.get();
-        if(tempC.getValue() == tempR.getValie()){
-            return tempC.getValue();
+        //at this point, tempColumn and tempRow point to the correct column and row
+        ValueNode columnNode = tempColumn.getFirst();
+        for(int i = 0; i < row; i++){
+            columnNode = columnNode.getNextRow();
+        }
+        ValueNode rowNode = tempRow.getFirst();
+        for(int i = 0; i < column; i++){
+            rowNode = rowNode.getNextRow();
+        }
+        if(columnNode.getValue() == rowNode.getValue()){
+            return columnNode.getValue();
         }
         else{
             return 0;
@@ -77,8 +98,16 @@ public class SparseMatrix {
         return null;
     }
 
-    public SparseMatrix produce(SparseMatrix other) {   //Multiples both matrixes together
-        // Need to do 
+    public SparseMatrix produce(SparseMatrix other) {   //Multiplies both matrices together
+        for (int i = 1 -> rowsA) {		//computes each row in the product
+            for(int j = 1 -> columnsB) {	//computes each column in the product
+                for(int k = 1 -> columnsA) {	//computes each value in the product
+                    sum += (value of matrixA at i, k) * (value of matrixB at k, j)
+                }
+                insert sum into product
+            }
+        }
+
         return null;
     }
 }
